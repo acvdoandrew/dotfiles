@@ -15,8 +15,30 @@ return {
         "pyright",
         "clangd",
         "clang-format",
+        "ruff",
+        "ruff-lsp",
       })
     end,
+  },
+
+  -- Configure formatters
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        python = { "ruff_format" },
+      },
+    },
+  },
+
+  -- Configure linting
+  {
+    "mfussenegger/nvim-lint",
+    opts = {
+      linters_vy_ft = {
+        python = { "ruff" },
+      },
+    },
   },
 
   -- lsp servers
@@ -128,6 +150,24 @@ return {
             },
           },
         },
+        -- Ruffs LSP for linting and formatting
+        ruff_lsp = {
+          keys = {
+            {
+              "<leader>co",
+              function()
+                vim.lsp.buf.code_action({
+                  apply = true,
+                  context = {
+                    only = { "source.organizeImports" },
+                    diagnostics = {},
+                  },
+                })
+              end,
+              desc = "Organize Imports",
+            },
+          },
+        },
         -- pyright for python auto complete
         pyright = {
           settings = {
@@ -153,7 +193,6 @@ return {
       table.insert(opts.sources, { name = "emoji" })
     end,
   },
-
   -- dap
   {
     "mfussenegger/nvim-dap",
