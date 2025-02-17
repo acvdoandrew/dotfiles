@@ -12,9 +12,9 @@ return {
         "css-lsp",
         "rust-analyzer",
         "codelldb",
-        "pyright",
         "clangd",
         "clang-format",
+        "pyright",
         "ruff",
         "ruff-lsp",
       })
@@ -27,6 +27,8 @@ return {
     opts = {
       formatters_by_ft = {
         python = { "ruff_format" },
+        c = { "clang-format" },
+        cpp = { "clang-format" },
       },
     },
   },
@@ -45,7 +47,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
-      inlay_hints = { enabled = true },
+      inlay_hints = { enabled = false },
       ---@type lspconfig.options
       servers = {
         cssls = {},
@@ -61,8 +63,8 @@ return {
           single_file_support = false,
           settings = {
             typescript = {
-              inlayHints = { -- set theese to try as you see fit
-                includeInlayParameterNameHints = "literal",
+              inlayHints = {
+                includeInlayParameterNameHints = "none",
                 includeInlayParameterNameHintsWhenArgumentMatchesName = false,
                 includeInlayFunctionParameterTypeHints = false,
                 includeInlayVariableTypeHints = false,
@@ -72,14 +74,14 @@ return {
               },
             },
             javascript = {
-              inlayHints = { -- set theese to try as you see fit
-                includeInlayParameterNameHints = "literal",
+              inlayHints = {
+                includeInlayParameterNameHints = "none",
                 includeInlayParameterNameHintsWhenArgumentMatchesName = false,
                 includeInlayFunctionParameterTypeHints = false,
                 includeInlayVariableTypeHints = false,
                 includeInlayPropertyDeclarationTypeHints = false,
                 includeInlayFunctionLikeReturnTypeHints = false,
-                includeInlayEnumMemberValueHints = true,
+                includeInlayEnumMemberValueHints = false,
               },
             },
           },
